@@ -1,12 +1,31 @@
-import React from "react";
-import { Card, Chart, CountryPicker } from "./components/index";
+import React, { useEffect, useState } from "react";
+import { Cards, Chart, CountryPicker } from "./components";
+import { fetchData } from "./api";
+import styles from "./App.module.css";
+import image from "./images/covid-logo.png";
 
 const App = () => {
+  const [info, setInfo] = useState({ data: {}, country: "" });
+
+  useEffect(() => {
+    const fetchApi = async () => {
+      const data = await fetchData();
+      setInfo({ ...info, data: data });
+    };
+    fetchApi();
+  }, []);
+
+  const handleCountryChange = async (country) => {
+    const data = await fetchData(country);
+    setInfo({ data: data, country: country });
+  };
+
   return (
-    <div>
-      <Card />
-      <CountryPicker />
-      <Chart />
+    <div className={styles.container}>
+      <img className={styles.image} src={image} alt="COVID-19" />
+      <Cards data={info.data} />
+      <CountryPicker handleCountryChange={handleCountryChange} />
+      <Chart data={info.data} country={info.country} />
     </div>
   );
 };
