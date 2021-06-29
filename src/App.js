@@ -1,9 +1,12 @@
 import React from "react";
+import { Card, Chart, CountryPicker } from "./components/index";
 
 const App = () => {
   return (
     <div>
-      <h2>Covid info</h2>
+      <Card />
+      <CountryPicker />
+      <Chart />
     </div>
   );
 };
