@@ -13,6 +13,7 @@ const App = () => {
       setInfo({ ...info, data: data });
     };
     fetchApi();
+    // eslint-disable-next-line
   }, []);
 
   const handleCountryChange = async (country) => {
